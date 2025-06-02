@@ -126,12 +126,6 @@ streamlit run main.py
 
 ---
 
-## 🎥 Demo Video
- 
-Watch the full demo: The demo walkthrough video is available in the [`Demo Video`](./Demo%20Video/) folder of this repository.
-
----
-
 ## 📣 Final Thoughts
 
 This project shows how **multimodal AI** transforms user interaction. With voice, visuals, and context-awareness, the assistant provides a rich, intuitive experience — powered by SAP’s most advanced AI models.
