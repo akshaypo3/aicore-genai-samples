@@ -1,0 +1,40 @@
+ 
+    .upload-section {
+        border: 2px dashed #0f62fe;
+        border-radius: 10px;
+        padding: 2rem;
+        text-align: center;
+        background-color: #f4f4f4;
+        margin-bottom: 1rem;
+    }
+    .upload-section:hover {
+        background-color: #e8e8e8;
+    }
+    .upload-icon {
+        font-size: 3rem;
+        color: #0f62fe;
+        margin-bottom: 1rem;
+    }
+    .stButton>button {
+        background-color: #0f62fe;
+        color: white;
+        border-radius: 5px;
+        padding: 0.5rem 1rem;
+        border: none;
+    }
+    .stButton>button:hover {
+        background-color: #0353e9;
+        color: white;
+    }
+    .chat-header {
+        color: #0f62fe;
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+    .chat-subheader {
+        color: #525252;
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+    
