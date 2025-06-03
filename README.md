@@ -1,5 +1,7 @@
-# SAP-samples/repository-template
-This default template for SAP Samples repositories includes files for README, LICENSE, and REUSE.toml. All repositories on github.com/SAP-samples will be created based on this template.
+# aicore-genai-samples
+This repository contains sample applications mainly to demonstrate usage of Generative AI Capabilities available in SAP AI Core. These applications can enable the user to have a quick hands-on with the some of the SAP AI Core capabilities.
+
+DISCLAIMER: The sample applications are only for enablement and not for Production usage.
 
 # Containing Files
 
@@ -23,19 +25,15 @@ Please edit this file as it is the primary description file for your project. Yo
 <!-- Please include SEO-friendly description -->
 
 ## Requirements
+* Please go through the tutorials as mentioned in the link below https://developers.sap.com/group.ai-core-get-started-basics.html
+* Please provision a SAP AI Core instance before you start using the application
 
 ## Download and Installation
-
-## Known Issues
-<!-- You may simply state "No known issues. -->
+* For every application, you can find the usage details in the application specific Readme.md file.
 
 ## How to obtain support
-[Create an issue](https://github.com/SAP-samples/<repository-name>/issues) in this repository if you find a bug or have questions about the content.
+[Create an issue](https://github.com/SAP-samples/aicore-genai-samples/issues) in this repository if you find a bug or have questions about the content.
  
-For additional support, [ask a question in SAP Community](https://answers.sap.com/questions/ask.html).
-
-## Contributing
-If you wish to contribute code, offer fixes or improvements, please send a pull request. Due to legal reasons, contributors will be asked to accept a DCO when they create the first pull request to this project. This happens in an automated fashion during the submission process. SAP uses [the standard DCO text of the Linux Foundation](https://developercertificate.org/).
 
 ## License
 Copyright (c) 2024 SAP SE or an SAP affiliate company. All rights reserved. This project is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE](LICENSE) file.
