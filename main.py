@@ -1,30 +1,35 @@
-import os
-from flask import Flask, request, jsonify
+# main.py
+import json
 import requests
 
-app = Flask(__name__)
+def handle(req):
+    body = json.loads(req)
+    prompt = body.get("prompt", "Say hello")
 
-@app.route("/v1/inference", methods=["POST"])
-def infer():
-    data = request.get_json()
-    prompt = data.get("prompt", "Say hello to SAP GenAI!")
+    response = requests.post(
+        "https://generative-ai.cfapps.eu10.hana.ondemand.com/inference/pipeline/gpt-4",  # change to correct model ID
+        headers={
+            "Authorization": f"Bearer {get_token()}",
+            "Content-Type": "application/json"
+        },
+        json={
+            "messages": [{"role": "user", "content": prompt}]
+        }
+    )
+    return {"response": response.json()}
 
-    # Use SAP Generative AI Hub endpoint
-    genai_url = "https://genaihub-aicore.cfapps.eu10.hana.ondemand.com/inference/palm/chat/completion"
+def get_token():
+    # Get token using service binding (SAP Launchpad provides it)
+    with open('/etc/secrets/sap-iam/service-key.json') as f:
+        key = json.load(f)
 
-    headers = {
-        "Authorization": f"Bearer {os.environ.get('GENAI_TOKEN')}",
-        "Content-Type": "application/json"
-    }
+    auth_url = key["url"] + "/oauth/token"
+    client_id = key["clientid"]
+    client_secret = key["clientsecret"]
 
-    payload = {
-        "messages": [{"role": "user", "content": prompt}]
-    }
-
-    response = requests.post(genai_url, headers=headers, json=payload)
-    response.raise_for_status()
-
-    return jsonify(response.json())
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=9000)
+    res = requests.post(
+        auth_url,
+        data={"grant_type": "client_credentials"},
+        auth=(client_id, client_secret)
+    )
+    return res.json()["access_token"]
