@@ -1,14 +1,13 @@
-from flask import Flask, request, jsonify
+# main.py — minimal working handler
+import json
 
-app = Flask(__name__)
+def handle(request):
+    # This function will be called by SAP AI Core
+    body = request.get_json()
+    prompt = body.get("prompt", "Say something")
 
-@app.route("/chat", methods=["POST"])
-def chat():
-    data = request.json
-    prompt = data.get("prompt")
-    response = f"You said: {prompt}"  # Dummy response
-    return jsonify({"response": response})
+    response = {
+        "response": f"Echoing back your prompt: {prompt}"
+    }
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080)
-
+    return (json.dumps(response), 200, {"Content-Type": "application/json"})
