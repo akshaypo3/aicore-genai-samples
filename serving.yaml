@@ -1,9 +1,11 @@
-schema_version: 1
-name: echo-model
-kind: ai-function
-description: Echoes prompt input
-inputs:
-  - name: prompt
-    type: string
-    default: Hello
-entry: main:handle
+apiVersion: "ai.sap.com/v1alpha1"
+kind: ServingTemplate
+metadata:
+  name: genai-sustena-app
+spec:
+  containers:
+    - image: docker.io/library/genai-sustena:latest
+      name: genai
+      ports:
+        - containerPort: 8080
+          protocol: TCP
