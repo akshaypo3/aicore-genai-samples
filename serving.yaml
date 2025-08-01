@@ -1,15 +1,9 @@
 schema_version: 1
-metadata:
-  name: sustena-genai-app
-  annotations:
-    scenario: "chatbot"
-    author: "akshay"
-spec:
-  containers:
-    - image: myusername/sustena-genai-chatbot:latest
-      ports:
-        - containerPort: 8080
-  resources:
-    limits:
-      memory: 512Mi
-      cpu: 0.5
+name: echo-model
+kind: ai-function
+description: Echoes prompt input
+inputs:
+  - name: prompt
+    type: string
+    default: Hello
+entry: main:handle
