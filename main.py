@@ -1,39 +1,30 @@
-import json
+import os
 from flask import Flask, request, jsonify
 import requests
 
 app = Flask(__name__)
 
-# Dummy example of using SAP Generative AI Hub (replace URL/token later)
-SAP_GENAI_API_URL = "https://generativeai.cfapps.eu10.hana.ondemand.com/inference/v1/completions"
-SAP_GENAI_TOKEN = "<your-token-here>"  # We'll show how to get this securely
-
-@app.route("/v1/predict", methods=["POST"])
-def predict():
+@app.route("/v1/inference", methods=["POST"])
+def infer():
     data = request.get_json()
-    prompt = data.get("prompt", "")
+    prompt = data.get("prompt", "Say hello to SAP GenAI!")
+
+    # Use SAP Generative AI Hub endpoint
+    genai_url = "https://genaihub-aicore.cfapps.eu10.hana.ondemand.com/inference/palm/chat/completion"
 
     headers = {
-        "Authorization": f"Bearer {SAP_GENAI_TOKEN}",
+        "Authorization": f"Bearer {os.environ.get('GENAI_TOKEN')}",
         "Content-Type": "application/json"
     }
 
     payload = {
-        "model": {
-            "name": "gemini-1.5-flash"
-        },
-        "messages": [
-            {"role": "user", "content": prompt}
-        ]
+        "messages": [{"role": "user", "content": prompt}]
     }
 
-    response = requests.post(SAP_GENAI_API_URL, headers=headers, json=payload)
-    result = response.json()
+    response = requests.post(genai_url, headers=headers, json=payload)
+    response.raise_for_status()
 
-    # Just extract response text (depends on structure)
-    content = result.get("choices", [{}])[0].get("message", {}).get("content", "")
-
-    return jsonify({"response": content})
+    return jsonify(response.json())
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080)
+    app.run(host="0.0.0.0", port=9000)
