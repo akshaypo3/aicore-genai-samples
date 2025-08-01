@@ -6,7 +6,7 @@ metadata:
     author: "akshay"
 spec:
   containers:
-    - image: <image_url_from_dockerhub_or_ai_launchpad>
+    - image: myusername/sustena-genai-chatbot:latest
       ports:
         - containerPort: 8080
   resources:
