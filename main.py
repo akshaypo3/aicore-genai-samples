@@ -1,35 +1,24 @@
-# main.py
-import json
 import requests
+import os
 
-def handle(req):
-    body = json.loads(req)
-    prompt = body.get("prompt", "Say hello")
+def run_genai_prompt():
+    endpoint = os.environ.get("GENAI_ENDPOINT")  # Set in execution config
+    apikey = os.environ.get("GENAI_APIKEY")      # Set in execution config
 
-    response = requests.post(
-        "https://generative-ai.cfapps.eu10.hana.ondemand.com/inference/pipeline/gpt-4",  # change to correct model ID
-        headers={
-            "Authorization": f"Bearer {get_token()}",
-            "Content-Type": "application/json"
-        },
-        json={
-            "messages": [{"role": "user", "content": prompt}]
-        }
-    )
-    return {"response": response.json()}
+    headers = {
+        "Authorization": f"Bearer {apikey}",
+        "Content-Type": "application/json"
+    }
 
-def get_token():
-    # Get token using service binding (SAP Launchpad provides it)
-    with open('/etc/secrets/sap-iam/service-key.json') as f:
-        key = json.load(f)
+    payload = {
+        "messages": [
+            {"role": "system", "content": "You are a helpful assistant"},
+            {"role": "user", "content": "What is sustainability in business?"}
+        ]
+    }
 
-    auth_url = key["url"] + "/oauth/token"
-    client_id = key["clientid"]
-    client_secret = key["clientsecret"]
+    response = requests.post(endpoint, headers=headers, json=payload)
+    print("Response:\n", response.text)
 
-    res = requests.post(
-        auth_url,
-        data={"grant_type": "client_credentials"},
-        auth=(client_id, client_secret)
-    )
-    return res.json()["access_token"]
+if __name__ == "__main__":
+    run_genai_prompt()
